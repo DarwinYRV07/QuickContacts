@@ -85,7 +85,7 @@ const setupDatabaseTableAsync = async()=>{
 };
 
 
-export const db ={
+export const database ={
     getContacts,
     insertContacts,
     dropDatabaseTableAsync,
