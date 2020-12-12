@@ -96,7 +96,7 @@ const setupContactsAsync = async ()=>{
         db.transaction(
             (tx) =>{
                 tx.executeSql("INSERT INTO contacts (primernombre,primerapellido,numero,empresa,email,grupo,direccion,nota) VALUES(?,?,?,?,?,?,?,?) ",[
-                    "Prueba",
+                    "Dina",
                     "NUEVA",
                     "99999999",
                     "UNICAH",
@@ -104,7 +104,10 @@ const setupContactsAsync = async ()=>{
                     "trabajo",
                     "un lugar",
                     "Universidad donde ahi mucho trabajo que hacer",
+
+                    "SELECT * FROM contacts ORDER BY primernombre"
                 ]);
+
             },
             (_t,error) =>{
                 console.log("Error al momento de insertar los valore por defecto");
