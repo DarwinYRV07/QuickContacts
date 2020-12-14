@@ -1,11 +1,13 @@
 import React, { useContext, useEffect,useState } from "react";
 import {StyleSheet} from "react-native";
-import { H3,Container,Content,Text,Textarea,Button } from "native-base";
+import { CommonActions } from '@react-navigation/native'
+import { H3,Container,Content,Text,Input,Button, View } from "native-base";
 
 // Trae el contexto de los contactos
 import {ContactContext} from "../context/ContactsContext";
+import { color } from "react-native-reanimated";
 
-const ContactCreateScreen = ({navegation}) =>{
+const ContactCreateScreen = ({navigation}) =>{
 
     
     const [nombre,setNombre] =useState("");
@@ -21,20 +23,20 @@ const ContactCreateScreen = ({navegation}) =>{
     const[errorContact,setErrorContacts] =useState(false);
     const contactContext = useContext(ContactContext);
 
-    //const [addNewContact, refreshContacts] = contactContext;
+    const {addNewContact, refreshContacts} = contactContext;
 
     
     
     useEffect(()=>{
-        if(nombre) setEnableSave(false);
+        if(nombre,apellido,grupo) setEnableSave(false);
         else setEnableSave(true);
-    },[nombre]);
+    },[nombre,apellido,grupo]);
 
-    const handlerNewContact = async ()=>{
-        if(nombre && apellido && numero && empresa && email && grupo && direccion && nota){
-            await addNewContact(nombre, apellido, numero, empresa, email, grupo,direccion, nota,refreshContacts);
+    const handlerNewContact =  ()=>{
+        if(nombre,apellido,grupo){
+            addNewContact(nombre, apellido, numero, empresa, email, grupo,direccion, nota,refreshContacts);
             //Regresara 
-            //navegation.goBack();
+            navigation.goBack();
             console.log("Felicidades has podido insertar ahora trabaja con el diseño");
         }else{
             setErrorContacts(true);
@@ -44,26 +46,58 @@ const ContactCreateScreen = ({navegation}) =>{
 
 
     return(
-        <Content>
-            <Container>
-                <H3>Ingresa la informacion del contacto</H3>
-                <Textarea rowSpan={1} bordered placeholder="Primer Nombre" value={nombre} onChange={setNombre}/>
-                <Textarea rowSpan={1} bordered placeholder="Primer apellido" value={apellido} onChange={setApellido} />
-                <Textarea rowSpan={1} bordered placeholder="Numero de telefono" value={numero} onChange={setNumero}/>
+        <Content style={{}}>
+            <Container style={{backgroundColor:"black"}}>
+                
+                <View style={{flex:1}}>
+                    <H3 style={styles.estiloTitulo}>Ingresa la informacion del contacto</H3>
+               
+                    <View style={styles.contenedor}>
+                        <Input style={styles.ContenedorInfo } rowSpan={1} bordered placeholder="Primer Nombre" value={nombre} onChangeText={setNombre}/>
+                        <Input style={styles.ContenedorInfo } rowSpan={1} bordered placeholder="Primer apellido" value={apellido} onChangeText={setApellido} />
+                        <Input style={styles.ContenedorInfo } rowSpan={1} bordered placeholder="Numero de telefono" value={numero} onChangeText={setNumero}/>
+                        <Input style={styles.ContenedorInfo } rowSpan={1} bordered placeholder="Correo Electronico" value={email} onChangeText={setEmail}/>
+                        <Input style={styles.ContenedorInfo } rowSpan={1} bordered placeholder="Empresa" value={empresa} onChangeText={setEmpresa}/>
+                        <Input style={styles.ContenedorInfo } rowSpan={1} bordered placeholder="Grupo" value={grupo} onChangeText={setGrupo}/>
+                        <Input style={styles.ContenedorInfo } rowSpan={2} bordered placeholder="Direccion" value={direccion} onChangeText={setDireccion}/>
+                        <Input style={styles.ContenedorInfo } rowSpan={3} bordered placeholder="Nota" value={nota} onChangeText={setNotas}/>
+                    </View>
+                </View>
 
-
-                <Textarea rowSpan={1} bordered placeholder="Correo Electronico" value={email} onChange={setEmail}/>
-                <Textarea rowSpan={1} bordered placeholder="Empresa" value={empresa} onChange={setEmpresa}/>
-                <Textarea rowSpan={1} bordered placeholder="Grupo" value={grupo} onChange={setGrupo}/>
-                <Textarea rowSpan={2} bordered placeholder="Direccion" value={direccion} onChange={setDireccion}/>
-                <Textarea rowSpan={3} bordered placeholder="Nota" value={nota} onChange={setNotas}/>
                 <Button onPress={handlerNewContact}>
                     <Text>Guardar</Text>
                 </Button>
+
             </Container>
         </Content>
     );
 };
 
-const styles =StyleSheet.create({});
+const styles =StyleSheet.create({
+    ContenedorInfo:{
+        flex:1,
+        margin:4,
+        borderColor:"#ffd369",
+        borderWidth:1,
+        backgroundColor:"black",
+        color:"white",
+        borderRadius:5,
+    },
+    contenedor:{
+        backgroundColor:"#ffd369",
+        flex:1, 
+        margin:15,
+        borderRadius:5
+    },
+    estiloTitulo:{
+        flex:0,
+        margin:5,
+        marginTop:15, 
+        backgroundColor:"#ffd369", 
+        color:"black",
+        textAlign:"center",
+        borderRadius:3
+
+    }
+});
 export default ContactCreateScreen;

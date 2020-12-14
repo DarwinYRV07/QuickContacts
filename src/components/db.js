@@ -129,6 +129,50 @@ const setupContactsAsync = async ()=>{
     });
 };
 
+//Editar 
+const setupateContacts = (nombre, apellido, numero, empresa, email, grupo,direccion, nota, successFunc) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql("update contacts set nombre = ?, apellido = ?, numero = ?, empresa = ?, grupo = ?, direccion = ?, nota = ? where id = ?", [
+            nombre, 
+            apellido, 
+            numero, 
+            empresa, 
+            email, 
+            grupo,
+            direccion, 
+            nota
+        ]);
+      },
+      (_t, error) => {
+        console.log("Error al editar el contacti");
+        console.log(error);
+      },
+      (_t, _success) => {
+        successFunc;
+      }
+    );
+  };
+
+ 
+  // Eliminar por id
+  const deleteContactById = (id, successFunc) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql("DELETE FROM contacts WHERE id = ?", [
+          id,
+        ]);
+      },
+      (_t, error) => {
+        console.log("Error al Eliminar el contactp");
+        console.log(error);
+      },
+      (_t, _success) => {
+        successFunc;
+      }
+    );
+  };
+
 
 export const database ={
     getContacts,
@@ -136,5 +180,6 @@ export const database ={
     dropDatabaseTableAsync,
     setupDatabaseTableAsync,
     setupContactsAsync,
-    
+    setupateContacts,
+    deleteContactById
 };

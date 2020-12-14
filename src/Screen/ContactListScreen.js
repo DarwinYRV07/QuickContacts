@@ -2,6 +2,8 @@ import { Button, Container, Content, Header, Icon, Input, Item, List, ListItem,T
 import React, { useContext,useState ,useEffect} from "react";
 import { StyleSheet} from 'react-native';
 import * as Font from 'expo-font';
+
+
 //Utilizando el contexto de contactos
 import {ContactContext} from "../context/ContactsContext";
 
