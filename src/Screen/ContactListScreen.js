@@ -1,15 +1,12 @@
-import { Button, Container, Content, Fab, H2, Header, Icon, Input, Item, List, ListItem, Text, View } from "native-base";
+import { Button, Container, Content, Header, Icon, Input, Item, List, ListItem,Text, View } from "native-base";
 import React, { useContext,useState ,useEffect} from "react";
 import { StyleSheet} from 'react-native';
-import { color } from "react-native-reanimated";
 import * as Font from 'expo-font';
-import {SectionListContacts} from 'react-native-sectionlist-contacts';
-
 //Utilizando el contexto de contactos
-import {ContactsContext} from "../context/ContactsContext";
+import {ContactContext} from "../context/ContactsContext";
 
 const ContactListScreen = ({navigation})=>{
-    const {contacts} = useContext(ContactsContext);
+    const {contacts} = useContext(ContactContext);
     const [fontsLoaded,setFontsLoaded] = useState(false);
 
         const LoadFonts = async() => {
@@ -59,10 +56,10 @@ const ContactListScreen = ({navigation})=>{
                         </Button>
                     </View>
                      {contacts ? contacts.map((contact)=>(
-                         <ListItem style={styles.nombreContactoItem}>
-                             {console.log(contact)}
+                         <ListItem style={styles.nombreContactoItem} key={contact.id.toString()}>
+                             {console.log(contact.nombre)}
                              <View style={{justifyContent: 'center',alignItems: 'center', flex:1,}}>
-                             <Text style={styles.nombreContactoTtext} key={contact.id}>{contact.primerNombre} {contact.primerApellido}{"\n"}{contact.numero}{"\n"}{contact.email}</Text>
+                             <Text style={styles.nombreContactoTtext} >{contact.nombre} {contact.apellido}{"\n"}{contact.numero}{"\n"}{contact.email}</Text>
                              </View>
                          </ListItem>
                         ))

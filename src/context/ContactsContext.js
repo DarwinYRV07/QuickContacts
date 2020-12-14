@@ -1,44 +1,51 @@
-import React, { useEffect, createContext, useState } from "react";
-import { ReloadInstructions } from "react-native/Libraries/NewAppScreen";
-import { database } from "../components/db";
+import React,{useEffect,useState, createContext} from "react";
+import {database} from "../components/db";
 
-//Creando el contexto de los contactos
-export const ContactsContext = createContext({});
+//Creando contexto de contactos
 
-export const ContactsContextProvider = props =>{
-    //Obtener los valores iniciales para el contexto
-    const{contacts: initialContact,children} = props;
+export const ContactContext = createContext({});
+export const ContactContextProvider = (props) =>{
+    //obtener los valore iniciales para el contexto
+    //se optienen desde los props
+    const {contacts:initialContact,children} = props;
 
-    //Almacena los valores de estado
-    const [contacts, setContacts] = useState(initialContact);
+    //Almacenar los valores en el estado
+    const[contacts,setContacts] = useState(initialContact);
+    //const [contact,setContact] = useState("");
 
-    //Cargamos y obtenemos las notas
+    //Cargar u obtener los contactos
     useEffect(()=>{
         refreshContacts();
     },[]);
-
     const refreshContacts = () =>{
         return database.getContacts(setContacts);
     };
 
-    const addNewContacts = (contacts) =>{
-        return database.insertContacts(contacts, refreshContacts);
+    const deleteContact = (id)=>{
+        return database.deleteContactById(id,refreshContacts);
     };
-    
-    //Crear el objeto de contexto
-    const contactsContext ={
+
+    const updateContacts =(nombre, apellido, numero, empresa, email, grupo,direccion, nota)=>{
+        return database.setupateContacts(nombre, apellido, numero, empresa, email, grupo,direccion, nota,refreshContacts);
+    }
+
+    const addNewContact = async (nombre, apellido, numero, empresa, email, grupo,direccion, nota) =>{
+        await database.insertContacts(nombre, apellido, numero, empresa, email, grupo,direccion, nota, refreshContacts);
+        return refreshContacts();
+    };
+
+    //Crear el objeto de context
+    const contactContext ={
+        
         contacts,
-        addNewContacts,
+        addNewContact
     };
 
-    //Pasa los valores al proveedor y retornarlo
     return(
-        <ContactsContext.Provider value={contactsContext}>
+        <ContactContext.Provider value={contactContext}>
             {children}
-        </ContactsContext.Provider>
-    ); 
-};
+        </ContactContext.Provider>
+    )
 
 
-
-
+}

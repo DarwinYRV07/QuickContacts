@@ -4,7 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import useDataBase from "./src/hooks/useDateBase";
 import {NavigationContainer} from "@react-navigation/native"
 import {createStackNavigator} from "@react-navigation/stack";
-import { ContactsContextProvider } from './src/context/ContactsContext';
+import { ContactContextProvider } from './src/context/ContactsContext';
 import ContactListScreen from "./src/Screen/ContactListScreen";
 import ContactCreateScreen from "./src/Screen/ContactCreateScreen";
 
@@ -22,14 +22,14 @@ export default function App() {
 
   return (
     <View style={{flex: 1}}>
-      <ContactsContextProvider>
+      <ContactContextProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="contactsList">
             <Stack.Screen name="contactsList" component={ContactListScreen} options={{headerShown:false}} />
             <Stack.Screen name="contactsCreate" component={ContactCreateScreen} options={{title:"Nuevo contacto",headerStyle:{backgroundColor:"#393e46"},headerTintColor:"white"}}/>
           </Stack.Navigator>
         </NavigationContainer>
-      </ContactsContextProvider>
+      </ContactContextProvider>
     </View>
   );
 }

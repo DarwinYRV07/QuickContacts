@@ -3,8 +3,6 @@ import * as SQLite from "expo-sqlite";
 
 // Crea la base de dato 
 const db = SQLite.openDatabase("quickContacts.db");
-
-
 //Las funcionalidades de la base de dato
 
 //Obtener todo los contactos del usuario
@@ -13,7 +11,7 @@ const db = SQLite.openDatabase("quickContacts.db");
 const getContacts = (setContactsFunc) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM contacts",
+        "SELECT * FROM contacts ORDER BY nombre",
         [],
         (_, { rows: { _array } }) => {
           setContactsFunc(_array);
@@ -34,7 +32,18 @@ const getContacts = (setContactsFunc) => {
 const insertContacts = (nombre, apellido, numero, empresa, email, grupo,direccion, nota, successFunc)=>{
     db.transaction(
         (tx)=>{
-            tx.executeSql("INSERT INTO contacts (primernombre,primerapellido,numero,empresa,email,grupo,direccion,nota) VALUES(?,?,?,?,?,?,?,?);",[nombre, apellido, numero, empresa, email, grupo,direccion, nota])
+            tx.executeSql(
+                "INSERT INTO contacts (nombre,apellido,numero,empresa,email,grupo,direccion,nota) VALUES(?,?,?,?,?,?,?,?);",
+            [
+                nombre, 
+                apellido, 
+                numero, 
+                empresa, 
+                email, 
+                grupo,
+                direccion, 
+                nota
+            ])
         },
         (_t, error)=>{
             console.log("Error en insertar los valores de contactos");
@@ -74,7 +83,7 @@ const setupDatabaseTableAsync = async()=>{
     return new Promise((resolve,reject)=>{
         db.transaction(
             (tx)=>{
-                tx.executeSql("CREATE TABLE IF NOT EXISTS contacts (id integer PRIMARY KEY AUTOINCREMENT , primerNombre text NOT NULL,primerApellido text NOT NULL,numero text NOT NULL,empresa text,email text,grupo text NOT NULL,direccion text, nota text );")
+                tx.executeSql("CREATE TABLE IF NOT EXISTS contacts (id integer PRIMARY KEY AUTOINCREMENT , nombre text NOT NULL,apellido text NOT NULL,numero text NOT NULL,empresa text,email text,grupo text NOT NULL,direccion text, nota text );")
             },
             (_t,error)=>{
                 console.log("Error en la creacion de la tabla");
@@ -95,8 +104,8 @@ const setupContactsAsync = async ()=>{
     return new Promise((resolve, reject)=> {
         db.transaction(
             (tx) =>{
-                tx.executeSql("INSERT INTO contacts (primernombre,primerapellido,numero,empresa,email,grupo,direccion,nota) VALUES(?,?,?,?,?,?,?,?) ",[
-                    "Dina",
+                tx.executeSql("INSERT INTO contacts (nombre,apellido,numero,empresa,email,grupo,direccion,nota) VALUES(?,?,?,?,?,?,?,?) ",[
+                    "Darwin",
                     "NUEVA",
                     "99999999",
                     "UNICAH",
@@ -104,8 +113,6 @@ const setupContactsAsync = async ()=>{
                     "trabajo",
                     "un lugar",
                     "Universidad donde ahi mucho trabajo que hacer",
-
-                    "SELECT * FROM contacts ORDER BY primernombre"
                 ]);
 
             },
