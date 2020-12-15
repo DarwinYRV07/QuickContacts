@@ -5,7 +5,7 @@
 App de contactos
 
 proyecto en git: https://github.com/DarwinYRV07/QuickContacts
-proyecto en expo:
+proyecto en expo:https://expo.io/@dr_yosue/projects/quickContacts
 
 Requisitos minimos:
 	*Resolución minima:720 x 1280
