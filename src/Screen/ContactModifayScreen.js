@@ -133,6 +133,10 @@ const styles = StyleSheet.create({
         color:"white",
         borderRadius:5,
     },
+
+
+
+    
 });
 
 export default ContactModifatScreen;
