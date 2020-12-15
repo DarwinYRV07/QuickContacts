@@ -37,16 +37,18 @@ export const ContactContextProvider = (props) =>{
         return database.deleteContactById(id,refreshContacts);
     };
 */
-    const updateContacts = async (nombre, apellido, numero, empresa, email, grupo,direccion, nota,id)=>{
-        await database.setupateContacts(nombre, apellido, numero, empresa, email, grupo,direccion, nota,id,refreshContacts);
-        return refreshContacts();
-    }
+    
 
     const addNewContact = async (nombre, apellido, numero, empresa, email, grupo,direccion, nota) =>{
         await database.insertContacts(nombre, apellido, numero, empresa, email, grupo,direccion, nota, refreshContacts);
         return refreshContacts();
         
     };
+
+    const updateContacts = async (nombre, apellido, numero, empresa, email, grupo,direccion, nota, id)=>{
+        await database.setupateContacts(nombre, apellido, numero, empresa, email, grupo,direccion, nota, id, refreshContacts);
+        return refreshContacts();
+    }
 
     //Crear el objeto de context
     const contactContext ={

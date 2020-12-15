@@ -84,7 +84,7 @@ const dropDatabaseTableAsync = async() =>{
     return new Promise((resolve,reject)=>{
         db.transaction(
             (tx)=>{
-                tx.executeSql("DROP TABLE quickContacts.contacts");
+                tx.executeSql("DELETE FROM contacts");
             },
             (_, result)=>{
                reject(result);
@@ -152,18 +152,11 @@ const setupContactsAsync = async ()=>{
 };
 
 //Editar 
-const setupateContacts = (nombre, apellido, numero, empresa, email, grupo,direccion, nota, successFunc) => {
+const setupateContacts = (nombre, apellido, numero, empresa, email, grupo,direccion, nota, id, successFunc) => {
     db.transaction(
       (tx) => {
-        tx.executeSql("update contacts set nombre = ?, apellido = ?, numero = ?, empresa = ?, grupo = ?, direccion = ?, nota = ? where id = ?", [
-            nombre, 
-            apellido, 
-            numero, 
-            empresa, 
-            email, 
-            grupo,
-            direccion, 
-            nota
+        tx.executeSql("update contacts set nombre = ?, apellido = ?, numero = ?, empresa = ?,email= ?, grupo = ?, direccion = ?, nota = ? where id = ?", [
+            nombre, apellido, numero, empresa, email, grupo,direccion, nota, id
         ]);
       },
       (_t, error) => {
@@ -171,6 +164,7 @@ const setupateContacts = (nombre, apellido, numero, empresa, email, grupo,direcc
         console.log(error);
       },
       (_t, _success) => {
+        console.log("Se actualizo exitosamente!!!!");
         successFunc;
       }
     );

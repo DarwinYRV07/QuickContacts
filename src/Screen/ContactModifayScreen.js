@@ -22,22 +22,31 @@ const ContactModifatScreen = ({route,navigation}) =>{
     const contactContext = useContext(ContactContext);
     const {contact, getContactId,updateContacts,refreshContacts} = contactContext;
 
+
     useEffect(()=>{
-        const getContact = async ()=>{
-            await getContactId(id,contact)
-        };
-        getContact();
-        if(contact.length){
-            setNombre(contact[0].nombre);
-            setApellido(contact[0].apellido);
-            setNumero(contact[0].numero);
-            setEmpresa(contact[0].empresa);
-            setEmail(contact[0].email);
-            setDireccion(contact[0].direccion);
-            setNotas(contact[0].nota);
-            console.log(nombre);
-        }  
-    },[id,contact]);
+        getContact(id,contact);
+    },[])
+
+//Cambia el estado de cada unos de los campos
+    useEffect(()=>{
+          
+    },[]);
+
+    const getContact = async ()=>{
+        await getContactId(id)
+    };
+    getContact();
+
+    if(contact.length){
+        setNombre(contact[0].nombre);
+        setApellido(contact[0].apellido);
+        setNumero(contact[0].numero);
+        setEmpresa(contact[0].empresa);
+        setEmail(contact[0].email);
+        setDireccion(contact[0].direccion);
+        setNotas(contact[0].nota);
+        console.log(nombre);
+    }
 
     const handlerSaveContact = async ()=>{
         if(nombre, apellido, numero, empresa, email, grupo,direccion, nota,id){
@@ -57,17 +66,17 @@ const ContactModifatScreen = ({route,navigation}) =>{
                     <H3 style={styles.estiloTitulo}>Ingresa la informacion del contacto</H3>
                
                     <View style={styles.contenedor}>
-                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered  value={nombre} onChangeText={setNombre}/>
-                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder={apellido} value={apellido} onChangeText={setApellido} />
-                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder="Numero de telefono" value={numero} onChangeText={setNumero}/>
-                        <Input style={styles.ContenedorInfo } bordered placeholder="Correo Electronico" value={email} onChangeText={setEmail}/>
-                        <Input style={styles.ContenedorInfo } bordered placeholder="Empresa" value={empresa} onChangeText={setEmpresa}/>
-                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder="Grupo" value={grupo} onChangeText={setGrupo}/>
-                        <Input style={styles.ContenedorInfo } bordered placeholder="Direccion" value={direccion} onChangeText={setDireccion}/>
-                        <Input style={styles.ContenedorInfo } bordered placeholder="Nota" value={nota} onChangeText={setNotas}/>
+                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo }  value={nombre} onChangeText={setNombre} placeholder="Primer Nombre"/>
+                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } placeholder="Primer apellido" value={apellido} onChangeText={setApellido} />
+                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } placeholder="Numero de telefono" value={numero} onChangeText={setNumero}/>
+                        <Input style={styles.ContenedorInfo } placeholder="Correo Electronico" value={email} onChangeText={setEmail}/>
+                        <Input style={styles.ContenedorInfo } placeholder="Empresa" value={empresa} onChangeText={setEmpresa}/>
+                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } placeholder="Grupo" value={grupo} onChangeText={setGrupo}/>
+                        <Input style={styles.ContenedorInfo } placeholder="Direccion" value={direccion} onChangeText={setDireccion}/>
+                        <Input style={styles.ContenedorInfo } placeholder="Nota" value={nota} onChangeText={setNotas}/>
                     </View>
                 </View>
-                { errorContact ? (<Text style={styles.error}>Debes llenar por lo menos el nombre, apellido, grupo y su correo!!!!</Text>):null}
+                { errorContact ? (<Text style={styles.error}>Debes llenar por lo menos el nombre, apellido,el numero, grupo y su correo!!!!</Text>):null}
                 <Button style={styles.estiloGuardar} onPress={handlerSaveContact} >
                     <Text style={{color:"black"}}>Guardar</Text>
                 </Button>

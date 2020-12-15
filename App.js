@@ -30,7 +30,7 @@ export default function App() {
             <Stack.Screen name="contactsList" component={ContactListScreen} options={{headerShown:false}} />
             <Stack.Screen name="contactsCreate" component={ContactCreateScreen} options={{title:"Nuevo contacto",headerStyle:{backgroundColor:"#393e46"},headerTintColor:"white"}}/>
             <Stack.Screen name= "contactInfo" component={ContactInfoScreen} options={{title:"Informacion",headerStyle:{backgroundColor:"#393e46"},headerTintColor:"white"}}/>
-            <Stack.Screen name="contactModyfay" component={ContactModifayScreen} options={{title:"Nuevo contacto",headerStyle:{backgroundColor:"#393e46"},headerTintColor:"white"}} />
+            <Stack.Screen name="contactModyfay" component={ContactModifayScreen} options={{title:"Editar Contacto",headerStyle:{backgroundColor:"#393e46"},headerTintColor:"white"}}/>
           </Stack.Navigator>
         </NavigationContainer>
       </ContactContextProvider>
