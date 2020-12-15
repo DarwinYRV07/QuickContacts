@@ -7,7 +7,6 @@ import {ContactContext} from "../context/ContactsContext";
 
 const ContactModifatScreen = ({route,navigation}) =>{
     const {id} = route.params;
-    console.log(id);
     const [nombre,setNombre] =useState(null);
     const [apellido,setApellido] =useState(null);
     const [numero,setNumero] =useState(null);
@@ -25,11 +24,17 @@ const ContactModifatScreen = ({route,navigation}) =>{
 
     useEffect(()=>{
         const getContact = async ()=>{
-            await getContactId(id)
+            await getContactId(id,contact)
         };
         getContact();
         if(contact.length){
             setNombre(contact[0].nombre);
+            setApellido(contact[0].apellido);
+            setNumero(contact[0].numero);
+            setEmpresa(contact[0].empresa);
+            setEmail(contact[0].email);
+            setDireccion(contact[0].direccion);
+            setNotas(contact[0].nota);
             console.log(nombre);
         }  
     },[id,contact]);
@@ -52,9 +57,9 @@ const ContactModifatScreen = ({route,navigation}) =>{
                     <H3 style={styles.estiloTitulo}>Ingresa la informacion del contacto</H3>
                
                     <View style={styles.contenedor}>
-                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder="Primer Nombre" value={nombre} onChangeText={setNombre}/>
-                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder="Primer apellido" value={apellido} onChangeText={setApellido} />
-                        <Input style={styles.ContenedorInfo } bordered placeholder="Numero de telefono" value={numero} onChangeText={setNumero}/>
+                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered  value={nombre} onChangeText={setNombre}/>
+                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder={apellido} value={apellido} onChangeText={setApellido} />
+                        <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder="Numero de telefono" value={numero} onChangeText={setNumero}/>
                         <Input style={styles.ContenedorInfo } bordered placeholder="Correo Electronico" value={email} onChangeText={setEmail}/>
                         <Input style={styles.ContenedorInfo } bordered placeholder="Empresa" value={empresa} onChangeText={setEmpresa}/>
                         <Input style={errorContact ? styles.InputError: styles.ContenedorInfo } bordered placeholder="Grupo" value={grupo} onChangeText={setGrupo}/>
@@ -63,7 +68,7 @@ const ContactModifatScreen = ({route,navigation}) =>{
                     </View>
                 </View>
                 { errorContact ? (<Text style={styles.error}>Debes llenar por lo menos el nombre, apellido, grupo y su correo!!!!</Text>):null}
-                <Button style={styles.estiloGuardar} onPress={handlerSaveContact} disabled={enableSave}>
+                <Button style={styles.estiloGuardar} onPress={handlerSaveContact} >
                     <Text style={{color:"black"}}>Guardar</Text>
                 </Button>
 
