@@ -11,7 +11,7 @@ const db = SQLite.openDatabase("quickContacts.db");
 const getContacts = (setContactsFunc) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM contacts ORDER BY nombre",
+        "SELECT * FROM contacts ORDER BY nombre ASC;",
         [],
         (_, { rows: { _array } }) => {
           setContactsFunc(_array);
@@ -26,6 +26,28 @@ const getContacts = (setContactsFunc) => {
       );
     });
   };
+
+  // insertar por id
+  const getContactById = (id, successFunc) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql("SELECT * FROM contacts WHERE id = ?", [
+          id,
+        ]);
+      },
+      (_t, error) => {
+        console.log("Error al insertar el contacto por id");
+        console.log(error);
+      },
+      (_t, _success) => {
+        successFunc;
+      }
+    );
+  };
+
+
+
+
 
 //Insertar contacto
 
@@ -145,7 +167,7 @@ const setupateContacts = (nombre, apellido, numero, empresa, email, grupo,direcc
         ]);
       },
       (_t, error) => {
-        console.log("Error al editar el contacti");
+        console.log("Error al editar el contacto");
         console.log(error);
       },
       (_t, _success) => {
@@ -164,7 +186,7 @@ const setupateContacts = (nombre, apellido, numero, empresa, email, grupo,direcc
         ]);
       },
       (_t, error) => {
-        console.log("Error al Eliminar el contactp");
+        console.log("Error al Eliminar el contacto");
         console.log(error);
       },
       (_t, _success) => {
@@ -181,5 +203,6 @@ export const database ={
     setupDatabaseTableAsync,
     setupContactsAsync,
     setupateContacts,
-    deleteContactById
+    deleteContactById,
+    getContactById
 };

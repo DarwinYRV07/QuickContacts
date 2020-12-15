@@ -1,45 +1,46 @@
-import React, { useContext, useEffect,useState } from "react";
+import React,{useContext,useState,useEffect} from "react";
 import {StyleSheet} from "react-native";
-import { H3,Container,Content,Text,Input,Button, View} from "native-base";
+import {  H3,Container,Content,Text,Input,Button, View } from "native-base";
 
-// Trae el contexto de los contactos
+//Utilizando el context de contactos
 import {ContactContext} from "../context/ContactsContext";
 
-const ContactCreateScreen = ({navigation}) =>{
+const ContactModifatScreen = ({route,navigation}) =>{
+    const {id} = route.params;
+    console.log(id);
+    const [nombre,setNombre] =useState(null);
+    const [apellido,setApellido] =useState(null);
+    const [numero,setNumero] =useState(null);
+    const [empresa,setEmpresa] =useState(null);
+    const [email,setEmail] =useState(null);
+    const [grupo,setGrupo] =useState(null);
+    const [direccion,setDireccion]=useState(null);
+    const [nota,setNotas]=useState(null);
 
-    
-    const [nombre,setNombre] =useState("");
-    const [apellido,setApellido] =useState("");
-    const [numero,setNumero] =useState("");
-    const [empresa,setEmpresa] =useState("");
-    const [email,setEmail] =useState("");
-    const [grupo,setGrupo] =useState("");
-    const [direccion,setDireccion]=useState("");
-    const [nota,setNotas]=useState("");
+    const [enableSave, setEnableSave] = useState(true);
+    const [errorContact, setErrorContact] = useState(false);
 
-    const[enableSave, setEnableSave] = useState(true);
-    const[errorContact,setErrorContacts] =useState(false);
     const contactContext = useContext(ContactContext);
+    const {contact, getContactId,updateContacts,refreshContacts} = contactContext;
 
-    const {addNewContact, refreshContacts} = contactContext;
-
-    
-    // Cuando el valor del contacto cambia
     useEffect(()=>{
-        if(nombre,apellido,grupo,email) setEnableSave(false);
-        else setEnableSave(true);
-    },[nombre,apellido,grupo,email]);
-
-    const handlerNewContact = async ()=>{
-        if(nombre,apellido,grupo,email){
-            await addNewContact(nombre, apellido, numero, empresa, email, grupo,direccion, nota,refreshContacts);
-        
-            //Regresara 
-            navigation.goBack();
-            console.log("Felicidades has podido insertar ahora trabaja con el diseño");
-        }else{
-            setErrorContacts(true);
+        const getContact = async ()=>{
+            await getContactId(id)
+        };
+        getContact();
+        if(contact.length){
+            setNombre(contact[0].nombre);
+            console.log(nombre);
         }  
+    },[id,contact]);
+
+    const handlerSaveContact = async ()=>{
+        if(nombre, apellido, numero, empresa, email, grupo,direccion, nota,id){
+            await updateContacts(nombre, apellido, numero, empresa, email, grupo,direccion, nota,id,refreshContacts);
+            navigation.goBack();
+        }else{
+            setErrorContact(true);
+        }
     };
 
 
@@ -62,16 +63,16 @@ const ContactCreateScreen = ({navigation}) =>{
                     </View>
                 </View>
                 { errorContact ? (<Text style={styles.error}>Debes llenar por lo menos el nombre, apellido, grupo y su correo!!!!</Text>):null}
-                <Button style={styles.estiloGuardar} onPress={handlerNewContact} disabled={enableSave}>
+                <Button style={styles.estiloGuardar} onPress={handlerSaveContact} disabled={enableSave}>
                     <Text style={{color:"black"}}>Guardar</Text>
                 </Button>
 
             </Container>
         </Content>
-    );
+    )
 };
 
-const styles =StyleSheet.create({
+const styles = StyleSheet.create({
     ContenedorInfo:{
         flex:1,
         margin:4,
@@ -99,7 +100,7 @@ const styles =StyleSheet.create({
     },
     estiloGuardar:{
         flex:0,
-        alignItems:"center",
+        alignContent:"center",
         justifyContent:"center",
         backgroundColor:"#ffd369",
         marginTop:15,
@@ -120,4 +121,5 @@ const styles =StyleSheet.create({
         borderRadius:5,
     },
 });
-export default ContactCreateScreen;
+
+export default ContactModifatScreen;

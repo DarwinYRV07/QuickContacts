@@ -1,11 +1,13 @@
 import { Button, Container, Content, Header, Icon, Input, Item, List, ListItem,Text, View } from "native-base";
 import React, { useContext,useState ,useEffect} from "react";
 import { StyleSheet} from 'react-native';
-import * as Font from 'expo-font';
+import * as Font from "expo-font";
+
 
 
 //Utilizando el contexto de contactos
 import {ContactContext} from "../context/ContactsContext";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ContactListScreen = ({navigation})=>{
     const {contacts} = useContext(ContactContext);
@@ -58,12 +60,16 @@ const ContactListScreen = ({navigation})=>{
                         </Button>
                     </View>
                      {contacts ? contacts.map((contact)=>(
-                         <ListItem style={styles.nombreContactoItem} key={contact.id.toString()}>
-                             {console.log(contact.nombre)}
-                             <View style={{justifyContent: 'center',alignItems: 'center', flex:1,}}>
-                             <Text style={styles.nombreContactoTtext} >{contact.nombre} {contact.apellido}{"\n"}{contact.numero}{"\n"}{contact.email}</Text>
-                             </View>
-                         </ListItem>
+                           <TouchableOpacity key={contact.id.toString()} onPress={()=>{navigation.navigate("contactModyfay",{id: contact.id});}}>
+                               <ListItem style={styles.nombreContactoItem} >
+                                {console.log(contact)}
+                                    <View style={{justifyContent: 'center',alignItems: 'center', flex:1,}}>
+                                        <Text style={styles.nombreContactoTtext} >{contact.nombre} {contact.apellido}{"\n"}{contact.numero}{"\n"}{contact.email}</Text>
+                                    </View>
+                                </ListItem>
+                           </TouchableOpacity> 
+                            
+
                         ))
                      : null}
                  </List>
