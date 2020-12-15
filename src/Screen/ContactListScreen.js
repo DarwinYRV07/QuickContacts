@@ -29,6 +29,19 @@ const ContactListScreen = ({navigation})=>{
           }
         });
 
+
+       // useEffect(() => {
+       //      const loadFontsAsync = async () => {
+       //       await Font.loadAsync({
+       //         Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+       //       }).then(() => {
+       //         setFontsLoaded(true);
+       //       });
+       //     };
+        
+       //     loadFontsAsync();
+       //   }, []);
+
     return(
          <Container style={{backgroundColor:"black",flex:1}}>
              {/*<View>
@@ -63,7 +76,7 @@ const ContactListScreen = ({navigation})=>{
                            <TouchableOpacity key={contact.id.toString()} onPress={()=>{navigation.navigate("contactModyfay",{id: contact.id});}}>
                                <ListItem style={styles.nombreContactoItem} >
                                 {console.log(contact)}
-                                    <View style={{justifyContent: 'center',alignItems: 'center', flex:1,}}>
+                                    <View style={{flex:1,}}>
                                         <Text style={styles.nombreContactoTtext} >{contact.nombre} {contact.apellido}{"\n"}{contact.numero}{"\n"}{contact.email}</Text>
                                     </View>
                                 </ListItem>
@@ -86,7 +99,7 @@ const styles = StyleSheet.create({
     nombreContactoTtext:{
         flex:1,
         color:"white",
-        fontFamily:"SF-Pro-Text-BoldItalic"
+        fontFamily:"SF-Pro-Display-Medium",
 
     },
     ViewCategorias:{
@@ -103,7 +116,8 @@ const styles = StyleSheet.create({
         flex:1,
         fontSize:18,
         color:"#ffd369",
-        textAlign:"center"
+        textAlign:"center",
+        fontFamily:"SF-Pro-Text-BoldItalic",
 
     }
 

@@ -2,7 +2,7 @@ import React from "react";
 import * as SQLite from "expo-sqlite";
 
 // Crea la base de dato 
-const db = SQLite.openDatabase("quickContacts.db");
+const db = SQLite.openDatabase("QuickContacts.db");
 //Las funcionalidades de la base de dato
 
 //Obtener todo los contactos del usuario
@@ -139,7 +139,7 @@ const setupContactsAsync = async ()=>{
 
             },
             (_t,error) =>{
-                console.log("Error al momento de insertar los valore por defecto");
+                console.log("Error al momento de insertar los valores por defecto");
                 console.log(error);
                 reject(error);
             },

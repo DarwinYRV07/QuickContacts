@@ -8,8 +8,8 @@ const useDataBase = () => {
   const loadDatabase = async () => {
     try {
       //await database.dropDatabaseTableAsync();  
-      //await database.setupDatabaseTableAsync();
-      //await database.setupContactsAsync();
+      await database.setupDatabaseTableAsync();
+      await database.setupContactsAsync();
 
       // Finaliza la carga de la DB
       setIsLoadingComplete(true)

@@ -77,10 +77,11 @@ const ContactModifatScreen = ({route,navigation}) =>{
                     </View>
                 </View>
                 { errorContact ? (<Text style={styles.error}>Debes llenar por lo menos el nombre, apellido,el numero, grupo y su correo!!!!</Text>):null}
+                <View style={{flex:0.3}}>
                 <Button style={styles.estiloGuardar} onPress={handlerSaveContact} >
                     <Text style={{color:"black"}}>Guardar</Text>
                 </Button>
-
+                </View>
             </Container>
         </Content>
     )
@@ -89,21 +90,21 @@ const ContactModifatScreen = ({route,navigation}) =>{
 const styles = StyleSheet.create({
     ContenedorInfo:{
         flex:1,
-        margin:4,
+        margin:3,
         borderColor:"#ffd369",
-        borderWidth:1,
+        borderWidth:0,
         backgroundColor:"black",
         color:"white",
-        borderRadius:5,
+        borderRadius:9,
     },
     contenedor:{
+        flex:18, 
         backgroundColor:"#ffd369",
-        flex:1, 
         margin:15,
         borderRadius:5
     },
     estiloTitulo:{
-        flex:0,
+        flex:1,
         margin:5,
         marginTop:15, 
         backgroundColor:"#ffd369", 
@@ -113,12 +114,10 @@ const styles = StyleSheet.create({
 
     },
     estiloGuardar:{
-        flex:0,
-        alignContent:"center",
-        justifyContent:"center",
         backgroundColor:"#ffd369",
         marginTop:15,
-        marginBottom:10
+        marginBottom:10,
+        left:160
     },
     error:{
         backgroundColor:"red",
